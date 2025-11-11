@@ -1,0 +1,13 @@
+---
+triggers:
+  cron: "@daily"
+
+git:
+  branches:
+    - main
+    - Fix-dockerfile
+managed_scripts:
+   - docker_tag.sh
+docker_name: go-trust-containerized
+builders:
+  - docker

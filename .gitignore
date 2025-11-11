@@ -1,0 +1,42 @@
+# Build artifacts (local builds no longer used - we build go-trust in Docker)
+# go-trust-service
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+go.work.sum
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*~
+.DS_Store
+
+# Docker volumes
+.docker/
+
+# Configuration files that may contain secrets
+config/*.secret.json
+config/*.local.json
+config/*.prod.json
+
+# Log files
+*.log
+logs/
+
+# Cache directories
+cache/
+tmp/

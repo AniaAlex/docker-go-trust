@@ -1,0 +1,29 @@
+{
+  "service": {
+    "name": "go-trust-service",
+    "version": "1.0.0",
+    "description": "Go-Trust TSL Processing Service"
+  },
+  "server": {
+    "host": "0.0.0.0",
+    "port": 6001,
+    "frequency": 3600,
+    "read_timeout": "30s",
+    "write_timeout": "30s"
+  },
+  "logging": {
+    "level": "info",
+    "format": "text",
+    "output": ""
+  },
+  "security": {
+    "rate_limit_rps": 100,
+    "enable_cors": true
+  },
+  "tsl": {
+    "pipeline_file": "/app/pipeline.yaml",
+    "cache_dir": "/tmp/tsl-cache",
+    "fetch_timeout": "60s",
+    "max_depth": 2
+  }
+}

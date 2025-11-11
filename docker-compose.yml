@@ -1,0 +1,20 @@
+version: "3.8"
+
+
+services:
+  go-trust-service:
+    image: go-trust-service:latest
+    build:
+      context: ..
+      dockerfile: docker-go-trust/Dockerfile
+      args:
+        - GO_TRUST_VERSION=main
+    ports:
+      - "6001:6001"
+    environment:
+      - LOG_LEVEL=info
+      - SERVICE_PORT=6001
+      - SERVICE_HOST=0.0.0.0
+      - CONFIG_FILE=/etc/go-trust/config.json
+      - PIPELINE_FILE=/app/pipeline.yaml
+      - FREQUENCY=3600s

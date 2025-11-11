@@ -1,0 +1,25 @@
+# Go-Trust Service Pipeline Configuration
+# This pipeline loads TSLs and creates certificate pools for API validation
+
+# Step 1: Configure fetch options for robust TSL loading
+- set-fetch-options:
+    - max-depth:2
+    - user-agent:Go-Trust-Service/1.0
+    - timeout:60s
+    - accept:application/xml,text/xml
+
+# Step 2: Load the custom LOTL from GitHub
+- load:
+    - https://raw.githubusercontent.com/AniaAlex/comprehensive-test-setup/refs/heads/main/test-trust-lotl/lotl.xml
+
+# Step 3: Log loaded TSLs
+- log:
+    - "Loaded custom LOTL and referenced TSLs from GitHub"
+
+# Step 4: Create comprehensive certificate pool for API validation
+- select:
+    - include-referenced  # Include certificates from all referenced TSLs
+
+# Step 5: Log certificate pool creation
+- log:
+    - "Certificate pool created - service ready for API requests"
