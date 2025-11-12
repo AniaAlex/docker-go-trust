@@ -187,15 +187,56 @@ jobs:
                     for pkg in $failed_packages; do
                       if [ -n "$pkg" ]; then
                         echo ""
-                        echo "--- Testing package individually: $pkg ---"
+                        echo "=================================================="
+                        echo "DETAILED TEST OUTPUT FOR FAILED PACKAGE: $pkg"
+                        echo "=================================================="
                         set +e
-                        go test -v "$pkg" 2>&1
+                        # Run with more verbose output and capture everything
+                        go test -v -count=1 "$pkg" > "individual_${pkg//\//_}.log" 2>&1
                         individual_exit_code=$?
                         set -e
-                        echo "Individual test exit code for $pkg: $individual_exit_code"
-                        echo "--- End of individual test for $pkg ---"
+                        
+                        echo "Full test output for $pkg:"
+                        cat "individual_${pkg//\//_}.log"
+                        echo ""
+                        echo "Exit code for $pkg: $individual_exit_code"
+                        
+                        # Look for specific failure patterns
+                        echo "Failure analysis for $pkg:"
+                        if grep -E "--- FAIL:|FAIL:" "individual_${pkg//\//_}.log"; then
+                          echo "Found specific test failures above"
+                        else
+                          echo "No specific test failures found, might be setup/build issue"
+                        fi
+                        
+                        if grep -i "panic\|fatal\|error\|timeout" "individual_${pkg//\//_}.log"; then
+                          echo "Found error patterns above"
+                        else
+                          echo "No obvious error patterns found"
+                        fi
+                        
+                        echo "=================================================="
+                        echo ""
                       fi
                     done
+                    
+                    # Try running without coverage to see if that's the issue
+                    echo ""
+                    echo "=== TESTING WITHOUT COVERAGE ==="
+                    echo "Trying to run all tests without coverage profile..."
+                    set +e
+                    go test -v -race -timeout 10m ./... > "no_coverage_test.log" 2>&1
+                    no_coverage_exit_code=$?
+                    set -e
+                    
+                    echo "Exit code without coverage: $no_coverage_exit_code"
+                    if [ $no_coverage_exit_code -eq 0 ]; then
+                      echo "✅ SUCCESS: Tests pass without coverage! The issue is with coverage generation."
+                    else
+                      echo "❌ Tests still fail without coverage. The issue is with the tests themselves."
+                      echo "Failed packages without coverage:"
+                      grep "^FAIL" "no_coverage_test.log" || echo "No FAIL packages found"
+                    fi
                     echo ""
                     
                     exit $TEST_EXIT_CODE
