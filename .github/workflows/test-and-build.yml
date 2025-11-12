@@ -21,7 +21,8 @@ jobs:
             - name: Set up Go
               uses: actions/setup-go@v4
               with:
-                  go-version: ${{ env.GO_VERSION }}
+                  go-version: "1.25"
+                  cache: true
 
             - name: Install system dependencies
               run: |
@@ -29,7 +30,10 @@ jobs:
                   sudo apt-get install -y \
                     build-essential \
                     pkg-config \
+                    libxslt1-dev \
                     libxml2-dev \
+                    xsltproc \
+                    bc \
                     ca-certificates \
                     git
 
@@ -79,168 +83,26 @@ jobs:
                   echo "Downloading dependencies with controlled versions..."
                   go mod tidy
                   go mod download
+
+            - name: Verify dependencies
+              working-directory: /tmp/go-trust-source
+              run: |
+                  echo "Verifying dependencies..."
                   go mod verify
                   echo "✅ Dependencies downloaded and verified"
 
-            - name: Run go-trust tests with coverage
+            - name: Build
               working-directory: /tmp/go-trust-source
               run: |
-                  echo "Running go-trust tests with coverage (SUNET style)..."
-                  echo "Using docker-go-trust controlled dependencies"
+                  echo "Building all packages..."
+                  go build -v ./...
+                  echo "✅ Build successful"
 
-                  echo "Available packages:"
-                  go list ./...
-                  echo ""
-
-                  # Run tests with full output capture
-                  echo "Running full test suite..."
-                  set +e  # Don't exit on error immediately
-                  go test -v -race -timeout 10m -coverprofile=coverage.txt -covermode=atomic ./... 2>&1 | tee test_output.log
-                  TEST_EXIT_CODE=${PIPESTATUS[0]}
-                  set -e  # Re-enable exit on error
-
-                  echo ""
-                  echo "=== TEST RESULTS SUMMARY ==="
-                  echo "Test command completed with exit code: $TEST_EXIT_CODE"
-                  echo ""
-
-                  # Always show the full test output for debugging
-                  echo "=== COMPLETE TEST OUTPUT ==="
-                  cat test_output.log
-                  echo ""
-                  echo "=== END OF TEST OUTPUT ==="
-                  echo ""
-
-                  # Show summary of what passed/failed from the log
-                  echo "=== PACKAGE RESULTS ==="
-                  grep -E "(^ok|^FAIL)" test_output.log || echo "No package results found"
-                  echo ""
-
-                  if [ $TEST_EXIT_CODE -eq 0 ]; then
-                    echo "✅ All go-trust tests passed with controlled dependencies!"
-                  else
-                    echo "❌ Tests failed with exit code: $TEST_EXIT_CODE"
-                    echo ""
-                    echo "=== FAILURE ANALYSIS ==="
-                    
-                    # Count passed vs failed packages
-                    PASSED_COUNT=$(grep -c "^ok" test_output.log || echo "0")
-                    FAILED_COUNT=$(grep -c "^FAIL" test_output.log || echo "0")
-                    echo "Packages passed: $PASSED_COUNT"
-                    echo "Packages failed: $FAILED_COUNT"
-                    echo ""
-                    
-                    # Show any FAIL lines
-                    echo "Failed packages:"
-                    grep "^FAIL" test_output.log || echo "No explicitly FAIL-marked packages found"
-                    echo ""
-                    
-                    # Extract error messages for failed packages
-                    echo "Detailed error messages for failed packages:"
-                    echo "=============================================="
-                    
-                    # For each failed package, show the context around the failure
-                    grep "^FAIL" test_output.log | while read -r fail_line; do
-                      if [[ "$fail_line" =~ FAIL[[:space:]]+([^[:space:]]+) ]]; then
-                        pkg_name="${BASH_REMATCH[1]}"
-                        echo "--- Errors for package: $pkg_name ---"
-                        # Show lines before and after the FAIL line for context
-                        grep -A 10 -B 10 "FAIL.*$pkg_name" test_output.log || echo "No additional context found"
-                        echo ""
-                      fi
-                    done
-                    echo "=============================================="
-                    echo ""
-                    
-                    # Show any test failures (lines with FAIL but not package level)
-                    echo "Individual test failures:"
-                    grep -E "--- FAIL:" test_output.log || echo "No individual test failures found"
-                    echo ""
-                    
-                    # Show any build errors
-                    echo "Build/compile errors:"
-                    grep -i "build failed\|cannot find package\|undefined:\|compilation failed\|no such file\|import cycle" test_output.log || echo "No build errors found"
-                    echo ""
-                    
-                    # Show error messages that might not be caught above
-                    echo "Other error patterns:"
-                    grep -i "error:\|failed\|exit status\|timeout\|killed" test_output.log || echo "No other error patterns found"
-                    echo ""
-                    
-                    # Show any race conditions or panic
-                    echo "Race conditions or panics:"
-                    grep -i "race\|panic\|fatal error" test_output.log || echo "No race conditions or panics found"
-                    echo ""
-                    
-                    # Check if it's a coverage issue
-                    echo "Coverage-related issues:"
-                    grep -i "coverage\|profile" test_output.log || echo "No coverage issues found"
-                    echo ""
-                    
-                    # Test failing packages individually for detailed diagnosis
-                    echo "=== INDIVIDUAL PACKAGE TESTING ==="
-                    echo "Testing failed packages individually for detailed errors:"
-                    
-                    # Extract just the package names from FAIL lines
-                    failed_packages=$(grep "^FAIL" test_output.log | grep -E "FAIL\s+github.com" | awk '{print $2}')
-                    
-                    for pkg in $failed_packages; do
-                      if [ -n "$pkg" ]; then
-                        echo ""
-                        echo "=================================================="
-                        echo "DETAILED TEST OUTPUT FOR FAILED PACKAGE: $pkg"
-                        echo "=================================================="
-                        set +e
-                        # Run with more verbose output and capture everything
-                        go test -v -count=1 "$pkg" > "individual_${pkg//\//_}.log" 2>&1
-                        individual_exit_code=$?
-                        set -e
-                        
-                        echo "Full test output for $pkg:"
-                        cat "individual_${pkg//\//_}.log"
-                        echo ""
-                        echo "Exit code for $pkg: $individual_exit_code"
-                        
-                        # Look for specific failure patterns
-                        echo "Failure analysis for $pkg:"
-                        if grep -E "--- FAIL:|FAIL:" "individual_${pkg//\//_}.log"; then
-                          echo "Found specific test failures above"
-                        else
-                          echo "No specific test failures found, might be setup/build issue"
-                        fi
-                        
-                        if grep -i "panic\|fatal\|error\|timeout" "individual_${pkg//\//_}.log"; then
-                          echo "Found error patterns above"
-                        else
-                          echo "No obvious error patterns found"
-                        fi
-                        
-                        echo "=================================================="
-                        echo ""
-                      fi
-                    done
-                    
-                    # Try running without coverage to see if that's the issue
-                    echo ""
-                    echo "=== TESTING WITHOUT COVERAGE ==="
-                    echo "Trying to run all tests without coverage profile..."
-                    set +e
-                    go test -v -race -timeout 10m ./... > "no_coverage_test.log" 2>&1
-                    no_coverage_exit_code=$?
-                    set -e
-                    
-                    echo "Exit code without coverage: $no_coverage_exit_code"
-                    if [ $no_coverage_exit_code -eq 0 ]; then
-                      echo "✅ SUCCESS: Tests pass without coverage! The issue is with coverage generation."
-                    else
-                      echo "❌ Tests still fail without coverage. The issue is with the tests themselves."
-                      echo "Failed packages without coverage:"
-                      grep "^FAIL" "no_coverage_test.log" || echo "No FAIL packages found"
-                    fi
-                    echo ""
-                    
-                    exit $TEST_EXIT_CODE
-                  fi
+            - name: Run tests with coverage
+              working-directory: /tmp/go-trust-source
+              run: |
+                  echo "Running tests with coverage (exactly like SUNET go-trust)..."
+                  go test -v -race -timeout 10m -coverprofile=coverage.txt -covermode=atomic ./...
 
             - name: Generate coverage reports
               working-directory: /tmp/go-trust-source
