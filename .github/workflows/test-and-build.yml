@@ -88,34 +88,48 @@ jobs:
                   echo "Running go-trust tests with coverage (SUNET style)..."
                   echo "Using docker-go-trust controlled dependencies"
 
-                  # Run tests with better error handling
+                  echo "Available packages:"
+                  go list ./...
+                  echo ""
+
+                  # Run tests with full output capture
+                  echo "Running full test suite..."
                   set +e  # Don't exit on error immediately
-                  go test -v -race -timeout 10m -coverprofile=coverage.txt -covermode=atomic ./...
-                  TEST_EXIT_CODE=$?
+                  go test -v -race -timeout 10m -coverprofile=coverage.txt -covermode=atomic ./... 2>&1 | tee test_output.log
+                  TEST_EXIT_CODE=${PIPESTATUS[0]}
                   set -e  # Re-enable exit on error
 
+                  echo ""
+                  echo "=== TEST RESULTS SUMMARY ==="
                   echo "Test command completed with exit code: $TEST_EXIT_CODE"
+                  echo ""
+
+                  # Show summary of what passed/failed from the log
+                  echo "=== PACKAGE RESULTS ==="
+                  grep -E "(^ok|^FAIL)" test_output.log || echo "No package results found"
+                  echo ""
 
                   if [ $TEST_EXIT_CODE -eq 0 ]; then
                     echo "✅ All go-trust tests passed with controlled dependencies!"
                   else
                     echo "❌ Tests failed with exit code: $TEST_EXIT_CODE"
-                    echo "Running diagnostic checks..."
+                    echo ""
+                    echo "=== FAILURE ANALYSIS ==="
                     
-                    # Show packages that were tested
-                    echo "Packages found:"
-                    go list ./... || echo "No packages listed"
+                    # Show any FAIL lines
+                    echo "Failed packages:"
+                    grep "^FAIL" test_output.log || echo "No FAIL packages found"
+                    echo ""
                     
-                    # Try running tests package by package to identify failures
-                    echo "Testing packages individually:"
-                    for pkg in $(go list ./... 2>/dev/null); do
-                      echo "Testing: $pkg"
-                      if go test -v "$pkg"; then
-                        echo "✅ PASSED: $pkg"
-                      else
-                        echo "❌ FAILED: $pkg"
-                      fi
-                    done
+                    # Show any build errors
+                    echo "Build/compile errors:"
+                    grep -i "build failed\|cannot find package\|undefined:" test_output.log || echo "No build errors found"
+                    echo ""
+                    
+                    # Show the last few lines for context
+                    echo "Last 20 lines of test output:"
+                    tail -20 test_output.log
+                    echo ""
                     
                     exit $TEST_EXIT_CODE
                   fi
