@@ -135,6 +135,23 @@ jobs:
                     grep "^FAIL" test_output.log || echo "No explicitly FAIL-marked packages found"
                     echo ""
                     
+                    # Extract error messages for failed packages
+                    echo "Detailed error messages for failed packages:"
+                    echo "=============================================="
+                    
+                    # For each failed package, show the context around the failure
+                    grep "^FAIL" test_output.log | while read -r fail_line; do
+                      if [[ "$fail_line" =~ FAIL[[:space:]]+([^[:space:]]+) ]]; then
+                        pkg_name="${BASH_REMATCH[1]}"
+                        echo "--- Errors for package: $pkg_name ---"
+                        # Show lines before and after the FAIL line for context
+                        grep -A 10 -B 10 "FAIL.*$pkg_name" test_output.log || echo "No additional context found"
+                        echo ""
+                      fi
+                    done
+                    echo "=============================================="
+                    echo ""
+                    
                     # Show any test failures (lines with FAIL but not package level)
                     echo "Individual test failures:"
                     grep -E "--- FAIL:" test_output.log || echo "No individual test failures found"
@@ -142,7 +159,12 @@ jobs:
                     
                     # Show any build errors
                     echo "Build/compile errors:"
-                    grep -i "build failed\|cannot find package\|undefined:\|compilation failed" test_output.log || echo "No build errors found"
+                    grep -i "build failed\|cannot find package\|undefined:\|compilation failed\|no such file\|import cycle" test_output.log || echo "No build errors found"
+                    echo ""
+                    
+                    # Show error messages that might not be caught above
+                    echo "Other error patterns:"
+                    grep -i "error:\|failed\|exit status\|timeout\|killed" test_output.log || echo "No other error patterns found"
                     echo ""
                     
                     # Show any race conditions or panic
@@ -153,6 +175,27 @@ jobs:
                     # Check if it's a coverage issue
                     echo "Coverage-related issues:"
                     grep -i "coverage\|profile" test_output.log || echo "No coverage issues found"
+                    echo ""
+                    
+                    # Test failing packages individually for detailed diagnosis
+                    echo "=== INDIVIDUAL PACKAGE TESTING ==="
+                    echo "Testing failed packages individually for detailed errors:"
+                    
+                    # Extract just the package names from FAIL lines
+                    failed_packages=$(grep "^FAIL" test_output.log | grep -E "FAIL\s+github.com" | awk '{print $2}')
+                    
+                    for pkg in $failed_packages; do
+                      if [ -n "$pkg" ]; then
+                        echo ""
+                        echo "--- Testing package individually: $pkg ---"
+                        set +e
+                        go test -v "$pkg" 2>&1
+                        individual_exit_code=$?
+                        set -e
+                        echo "Individual test exit code for $pkg: $individual_exit_code"
+                        echo "--- End of individual test for $pkg ---"
+                      fi
+                    done
                     echo ""
                     
                     exit $TEST_EXIT_CODE
