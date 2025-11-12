@@ -85,43 +85,57 @@ jobs:
               working-directory: /tmp/go-trust-source
               run: |
                   echo "Running all go-trust tests..."
-                  set -e  # Exit on any error
-                  go test -v ./... || {
-                    echo "❌ Tests failed. Checking for common issues..."
+
+                  # Run tests and capture both output and exit code
+                  if go test -v ./...; then
+                    echo "✅ All tests passed!"
+                  else
+                    TEST_EXIT_CODE=$?
+                    echo "❌ Tests failed with exit code: $TEST_EXIT_CODE"
                     echo "Go version: $(go version)"
                     echo "Available packages:"
-                    go list ./...
-                    exit 1
-                  }
-                  echo "✅ All tests passed!"
+                    go list ./... || true
+                    echo "Detailed test output:"
+                    go test -v ./... || true
+                    exit $TEST_EXIT_CODE
+                  fi
+
+            - name: Run tests package by package (diagnostic)
+              working-directory: /tmp/go-trust-source
+              if: failure()
+              run: |
+                  echo "Running tests package by package for diagnosis..."
+                  for pkg in $(go list ./...); do
+                    echo "Testing package: $pkg"
+                    if ! go test -v "$pkg"; then
+                      echo "❌ Failed package: $pkg"
+                    else
+                      echo "✅ Passed package: $pkg"
+                    fi
+                    echo "---"
+                  done
 
             - name: Run go-trust tests with coverage
               working-directory: /tmp/go-trust-source
               run: |
                   echo "Running go-trust tests with coverage..."
-                  set -e  # Exit on any error
-                  go test -v -coverprofile=coverage.out ./... || {
+
+                  # Run coverage tests
+                  if go test -v -coverprofile=coverage.out ./...; then
+                    echo "Generating coverage reports..."
+                    go tool cover -html=coverage.out -o coverage.html
+                    echo "Coverage summary:"
+                    go tool cover -func=coverage.out
+
+                    # Extract coverage percentage
+                    COVERAGE=$(go tool cover -func=coverage.out | grep total | awk '{print $3}' | sed 's/%//' || echo "0")
+                    echo "Total coverage: ${COVERAGE}%"
+
+                    echo "✅ Coverage tests passed with ${COVERAGE}% coverage!"
+                  else
                     echo "❌ Coverage tests failed"
                     exit 1
-                  }
-
-                  echo "Generating coverage reports..."
-                  go tool cover -html=coverage.out -o coverage.html
-                  echo "Coverage summary:"
-                  go tool cover -func=coverage.out
-
-                  # Extract coverage percentage
-                  COVERAGE=$(go tool cover -func=coverage.out | grep total | awk '{print $3}' | sed 's/%//')
-                  echo "Total coverage: ${COVERAGE}%"
-
-                  # Optional: Set minimum coverage threshold (e.g., 80%)
-                  # THRESHOLD=80
-                  # if (( $(echo "$COVERAGE < $THRESHOLD" | bc -l) )); then
-                  #   echo "❌ Coverage ${COVERAGE}% is below threshold ${THRESHOLD}%"
-                  #   exit 1
-                  # fi
-
-                  echo "✅ Coverage tests passed with ${COVERAGE}% coverage!"
+                  fi
 
             - name: Upload coverage reports
               uses: actions/upload-artifact@v4
