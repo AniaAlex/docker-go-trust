@@ -53,7 +53,7 @@
           </DigitalId>
         </ServiceDigitalIdentity>
       </ServiceDigitalIdentities>
-      <TSLLocation>https://raw.githubusercontent.com/AniaAlex/comprehensive-test-setup/refs/heads/main/test-output/tsl-1.xml</TSLLocation>
+      <TSLLocation>https://github.com/SUNET/docker-go-trust/blob/main/test-tl-setup/test-certs/SE-test-tl.xml</TSLLocation>
       <AdditionalInformation>
         <OtherInformation>
           <TSLType>http://uri.etsi.org/TrstSvc/TrustedList/TSLType/EUgeneric</TSLType>
@@ -83,7 +83,7 @@
           </DigitalId>
         </ServiceDigitalIdentity>
       </ServiceDigitalIdentities>
-      <TSLLocation>https://raw.githubusercontent.com/AniaAlex/comprehensive-test-setup/refs/heads/main/test-output/tsl-2.xml</TSLLocation>
+      <TSLLocation>https://raw.githubusercontent.com/SUNET/docker-go-trust/refs/heads/main/test-tl-setup/test-certs/DE-test-tl.xml</TSLLocation>
       <AdditionalInformation>
         <OtherInformation>
           <TSLType>http://uri.etsi.org/TrstSvc/TrustedList/TSLType/EUgeneric</TSLType>
