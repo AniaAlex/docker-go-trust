@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TrustServiceStatusList xmlns="http://uri.etsi.org/02231/v2#"
+  xmlns:ns2="http://www.w3.org/2000/09/xmldsig#"
+  xmlns:ns3="http://uri.etsi.org/02231/v2/additionaltypes#"
+  xmlns:ns4="http://uri.etsi.org/01903/v1.3.2#"
+  xmlns:ns5="http://uri.etsi.org/TrstSvc/SvcInfoExt/eSigDir-1999-93-EC-TrustedList/#"
+  xmlns:ns6="http://uri.etsi.org/01903/v1.4.1#" Id="BE-TL-071" TSLTag="http://uri.etsi.org/19612/TSLTag">
+  <SchemeInformation>
+    <TSLVersionIdentifier>1</TSLVersionIdentifier>
+    <TSLSequenceNumber>0</TSLSequenceNumber>
+    <TSLType>http://uri.etsi.org/TrstSvc/TrustedList/TSLType/EUgeneric</TSLType>
+    <SchemeOperatorName>
+      <Name lang="en">German National Trust List Operator</Name>
+      <Name lang="de">Deutscher Nationaler Vertrauenslistenoperator</Name>
+    </SchemeOperatorName>
+    <StatusDeterminationApproach></StatusDeterminationApproach>
+    <HistoricalInformationPeriod>0</HistoricalInformationPeriod>
+    <ListIssueDateTime></ListIssueDateTime>
+  </SchemeInformation>
+  <TrustServiceProviderList>
+    <TrustServiceProvider>
+      <TSPInformation>
+        <TSPName>
+          <Name lang="en">Deutsche Telekom Trust Center</Name>
+          <Name lang="de">Deutsche Telekom Vertrauenszentrum</Name>
+        </TSPName>
+        <TSPAddress>
+          <PostalAddresses>
+            <PostalAddress lang="en">
+              <StreetAddress>Friedrich-Ebert-Allee 140</StreetAddress>
+              <Locality>Bonn</Locality>
+              <PostalCode>53113</PostalCode>
+              <CountryName>DE</CountryName>
+            </PostalAddress>
+          </PostalAddresses>
+          <ElectronicAddress>
+            <URI lang="en">https://www.telekom.de/trust-center</URI>
+            <URI lang="en">mailto:trust@telekom.de</URI>
+          </ElectronicAddress>
+        </TSPAddress>
+      </TSPInformation>
+      <TSPServices>
+        <TSPService>
+          <ServiceInformation>
+            <ServiceTypeIdentifier>http://uri.etsi.org/TrstSvc/Svctype/CA/QC</ServiceTypeIdentifier>
+            <ServiceName>
+              <Name lang="en">Deutsche Telekom Root Certificate Authority</Name>
+              <Name lang="de">Deutsche Telekom Wurzelzertifikatsautorität</Name>
+            </ServiceName>
+            <ServiceDigitalIdentity>
+              <DigitalId>
+                <X509Certificate>MIIEDTCCAvWgAwIBAgIUcyyTpcflHOSQwTQkATE0qe8eo/4wDQYJKoZIhvcNAQELBQAwgZUxCzAJBgNVBAYTAkRFMR8wHQYDVQQIDBZOb3J0aCBSaGluZS1XZXN0cGhhbGlhMQ0wCwYDVQQHDARCb25uMRwwGgYDVQQKDBNEZXV0c2NoZSBUZWxla29tIEFHMRUwEwYDVQQLDAxUcnVzdCBDZW50ZXIxITAfBgNVBAMMGERldXRzY2hlIFRlbGVrb20gUm9vdCBDQTAeFw0yNTEwMTQxMzE4NTBaFw0yNjEwMTQxMzE4NTBaMIGVMQswCQYDVQQGEwJERTEfMB0GA1UECAwWTm9ydGggUmhpbmUtV2VzdHBoYWxpYTENMAsGA1UEBwwEQm9ubjEcMBoGA1UECgwTRGV1dHNjaGUgVGVsZWtvbSBBRzEVMBMGA1UECwwMVHJ1c3QgQ2VudGVyMSEwHwYDVQQDDBhEZXV0c2NoZSBUZWxla29tIFJvb3QgQ0EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDTNsUcXJPnRM5BedqRbs91/9kY3F60M3eP0Zrj9UYVBfPgioYVG6r2057f3l3Sk50oWZKSrO/xuqR7ypk0Xcu/XWJ44y7g2tLxW3yFO0ytyTrIVAlS9tbyif6T0BXYezS47oY/IR4v/QJCG7UDrLNuakosx5fQsjL3O7Qo6GIPctigMxIK9FnlBLJafYJLX9saixhhx7THLQbRRE/qzocHWPWxGkMJ1wTD9HZW8SQKL356jZaS9wyTlqbtf5wxbGeix7pGSsYLgWk6PGzj9ouFh6CS26SGc5XjalpVCwIdWMhLbkxCxcMvG1prFSU+ViWCz4A6RTMuBq1HxVf2IvZrAgMBAAGjUzBRMB0GA1UdDgQWBBSTZkulzOJF65wC4scEFYIr1nYNYzAfBgNVHSMEGDAWgBSTZkulzOJF65wC4scEFYIr1nYNYzAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQC42EUHMqz9mz+pLtRzr8Ynr0TzyfnVRf/YDLwFfFHaBk/424VrP4817EfbRx3JwHZn4neIuWesUgvK7Yk6piEcvGfkuSVpS7uKo6OKQGn4rHaOLxnzfAQ4CIBVrfnTg5Lmqze6bwkt/yO8k0mvEHuORuGjvkcp4ZC2f+il5/UGd+qCUoej9bpAOY4Z0oJ8+Z+rFKSqHdPqDjVmKloFh0Dp+wsKMNur3/4wDWUmI52BAaehPNzUgYtEVUyNjMiOQZw7Xvwmh9ipWUozFtKwj2h6t8o1/qYU3ExUT2f50CiGIyb/AOempD1H+tNaNwWcwDHT+2ZWiCIWiKCVTrKpSN7O</X509Certificate>
+                <X509SubjectName></X509SubjectName>
+                <X509SKI></X509SKI>
+              </DigitalId>
+            </ServiceDigitalIdentity>
+            <ServiceStatus>http://uri.etsi.org/TrstSvc/TrustedList/Svcstatus/granted</ServiceStatus>
+            <StatusStartingTime></StatusStartingTime>
+          </ServiceInformation>
+        </TSPService>
+      </TSPServices>
+    </TrustServiceProvider>
+  </TrustServiceProviderList>
+</TrustServiceStatusList>

@@ -1,0 +1,110 @@
+<TrustServiceStatusList xmlns="http://uri.etsi.org/02231/v2#" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#" xmlns:ns3="http://uri.etsi.org/02231/v2/additionaltypes#" xmlns:ns4="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns5="http://uri.etsi.org/TrstSvc/SvcInfoExt/eSigDir-1999-93-EC-TrustedList/#" xmlns:ns6="http://uri.etsi.org/01903/v1.4.1#" Id="ID0001" TSLTag="http://uri.etsi.org/19612/TSLTag">
+  <SchemeInformation>
+    <TSLVersionIdentifier>5</TSLVersionIdentifier>
+    <TSLSequenceNumber>1</TSLSequenceNumber>
+    <TSLType>http://uri.etsi.org/TrstSvc/TrustedList/TSLType/EUlistofthelists</TSLType>
+    <SchemeOperatorName>
+      <Name xml:lang="en">Test European List of Trusted Lists Operator</Name>
+    </SchemeOperatorName>
+    <SchemeOperatorAddress>
+      <PostalAddresses>
+        <PostalAddress xml:lang="en">
+          <StreetAddress>Test Street 1</StreetAddress>
+          <Locality>Test City</Locality>
+          <PostalCode>12345</PostalCode>
+          <CountryName>EU</CountryName>
+        </PostalAddress>
+      </PostalAddresses>
+      <ElectronicAddress>
+        <URI xml:lang="en">https://test-lotl-operator.eu</URI>
+        <URI xml:lang="en">mailto:info@test-lotl-operator.eu</URI>
+      </ElectronicAddress>
+    </SchemeOperatorAddress>
+    <SchemeName>
+      <Name xml:lang="en">Test European List of Trusted Lists</Name>
+    </SchemeName>
+    <SchemeInformationURI>
+      <URI xml:lang="en">https://test-lotl-operator.eu/info</URI>
+    </SchemeInformationURI>
+    <StatusDeterminationApproach>
+      <URI xml:lang="en">https://test-lotl-operator.eu/status-determination</URI>
+    </StatusDeterminationApproach>
+    <SchemeTypeCommunityRules>
+      <URI xml:lang="en">http://uri.etsi.org/TrstSvc/TrustedList/schemerules/EUcommon</URI>
+    </SchemeTypeCommunityRules>
+    <SchemeTerritory>EU</SchemeTerritory>
+    <PolicyOrLegalNotice>
+      <TSLLegalNotice xml:lang="en">This is a test LOTL for demonstration purposes only. In accordance with Article 4(3) of Commission Implementing Decision (EU) 2015/1505, this test list contains pointers to national trusted lists for testing interoperability and functionality.</TSLLegalNotice>
+    </PolicyOrLegalNotice>
+    <HistoricalInformationPeriod>65535</HistoricalInformationPeriod>
+    <ListIssueDateTime>2025-10-16T12:00:00Z</ListIssueDateTime>
+    <NextUpdate>
+      <dateTime>2025-11-16T12:00:00Z</dateTime>
+    </NextUpdate>
+    <DistributionPoints>
+      <URI>https://test-lotl-operator.eu/lotl.xml</URI>
+    </DistributionPoints> 
+  <PointersToOtherTSL>
+    <OtherTSLPointer>
+      <ServiceDigitalIdentities>
+        <ServiceDigitalIdentity>
+          <DigitalId>
+            <X509Certificate>MIID8TCCAtmgAwIBAgIURYv4lbWPC2kNWbD/hm4TOJzc1RcwDQYJKoZhvcNAQELBQAwgYcxCzAJBgNVBAYTAlNFMRIwEAYDVQQIDAlTdG9ja2hvbG0xEzARBgNVBAcMClN1bmRieWJlcmcxFDASBgNVBAoMC1N3ZWRiYW5rIEFCMR4wHAYDVQQLDBVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxGTAXBgNVBAMMEFN3ZWRiYW5rIFJvb3QgQ0EwHhcNMjUxMDE1MDkzMDExWhcNMjYxMDE1MDkzMDExWjCBhzELMAkGA1UEBhMCU0UxEjAQBgNVBAgMCVN0b2NraG9sbTETMBEGA1UEBwwKU3VuZGJ5YmVyZzEUMBIGA1UECgwLU3dlZGJhbmsgQUIxHjAcBgNVBAsMFUNlcnRpZmljYXRlIEF1dGhvcml0eTEZMBcGA1UEAwwQU3dlZGJhbmsgUm9vdCBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMl2+X0EcSZnOUGQ04gazUViBZ5ta7XPpvisp6Ng/hcUx95oIsRak9W+9ozx1v2IERY/0BbLb0DQTbu04ovvALQMm1aqvtAIhFweXJmrn+dlQgtxWXOPqDkVHIGYrYQj/tAYlv/i3sBstraswNi0Gb+oHMOXg0zR5domiXCF9Tq6FXNFuqsG0sk3/Heacp/JUUYfMxJmtb+rdZjnzVnFvKE+GhL4GlYiLRy+6Zm25yxiJHBI3yAnl9T4x+4xOY7Mcn1lu5oerJ8K9BXFoaOe8DjEoIFVyIZ5BTHoLWTVWcSJOUP6hSav9FUvOlinJBG74coJsDWNp6JCK3TyT6kCAwEAAaNTMFEwHQYDVR0OBBYEFInVNmEHzAWxFHlrpJKSL7L55qxdMB8GA1UdIwQYMBaAFInVNmEHzAWxFHlrpJKSL7L55qxdMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAERYXVUfqfH8aBUBgbHh86kqv8EAvBN5c418lw+9BzAV0Zh43LQGj5lKlaeqpqfPJ4imM5XiiSq4GR6ihI0qfT/4JxlLQg0TUwe5oJyHl9rexoW9Htpy2A542mR7NZrKXeCfEWlh9sjGoaIYKrdBY454S24G+20rEwroU9fPtEYPHqFjC/MalhXKJpPdxORf8CRkDCHSXucZp4paMz6txK1zKVjRrFbfiyW7W6QRbCTy2sezVCGKhMxmB5g/HrvxcddQJdfe6l/xZBWOd16Tj1KzeZFEc9MQ82OG9GsYZ5DJFHUCyaojlFPSF7UopHj/znMj9mFNUYPtMHcop1E=</X509Certificate>
+          </DigitalId>
+        </ServiceDigitalIdentity>
+      </ServiceDigitalIdentities>
+      <TSLLocation>https://raw.githubusercontent.com/AniaAlex/comprehensive-test-setup/refs/heads/main/test-output/tsl-1.xml</TSLLocation>
+      <AdditionalInformation>
+        <OtherInformation>
+          <TSLType>http://uri.etsi.org/TrstSvc/TrustedList/TSLType/EUgeneric</TSLType>
+        </OtherInformation>
+        <OtherInformation>
+          <SchemeOperatorName>
+            <Name xml:lang="en">Swedish National Trust List Operator</Name>
+            <Name xml:lang="sv">Svensk Nationell Tillitslistoperatör</Name>
+          </SchemeOperatorName>
+        </OtherInformation>
+        <OtherInformation>
+          <SchemeTerritory>SE</SchemeTerritory>
+        </OtherInformation>
+        <OtherInformation>
+          <SchemeTypeCommunityRules>
+            <URI xml:lang="en">http://uri.etsi.org/TrstSvc/TrustedList/schemerules/EUcommon</URI>
+            <URI xml:lang="en">http://uri.etsi.org/TrstSvc/TrustedList/schemerules/SE</URI>
+          </SchemeTypeCommunityRules>
+        </OtherInformation>
+      </AdditionalInformation>
+    </OtherTSLPointer>
+    <OtherTSLPointer>
+      <ServiceDigitalIdentities>
+        <ServiceDigitalIdentity>
+          <DigitalId>
+            <X509Certificate>MIIEDTCCAvWgAwIBAgIUcyyTpcflHOSQwTQkATE0qe8eo/4wDQYJKoZIhvcNAQELBQAwgZUxCzAJBgNVBAYTAkRFMR8wHQYDVQQIDBZOb3J0aCBSaGluZS1XZXN0cGhhbGlhMQ0wCwYDVQQHDARCb25uMRwwGgYDVQQKDBNEZXV0c2NoZSBUZWxla29tIEFHMRUwEwYDVQQLDAxUcnVzdCBDZW50ZXIxITAfBgNVBAMMGERldXRzY2hlIFRlbGVrb20gUm9vdCBDQTAeFw0yNTEwMTQxMzE4NTBaFw0yNjEwMTQxMzE4NTBaMIGVMQswCQYDVQQGEwJERTEfMB0GA1UECAwWTm9ydGggUmhpbmUtV2VzdHBoYWxpYTENMAsGA1UEBwwEQm9ubjEcMBoGA1UECgwTRGV1dHNjaGUgVGVsZWtvbSBBRzEVMBMGA1UECwwMVHJ1c3QgQ2VudGVyMSEwHwYDVQQDDBhEZXV0c2NoZSBUZWxla29tIFJvb3QgQ0EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDTNsUcXJPnRM5BdqRbs91/9kY3F60M3eP0Zrj9UYVBfPgioYVG6r2057f3l3Sk50oWZKSrO/xuqR7ypk0Xcu/XWJ44y7gtLxW3yFO0ytyTrIVAlS9tbyif6T0BXYezS47oY/IR4v/QJCG7UDrLNuakosx5fQsjL3O7Qo6GIPctgxIK9FnlBLJafYJLX9saixhhx7THLQbRRE/qzocHWPWxGkMJ1wTD9HZW8SQKL356jZaS9wyTlqbtf5wxGeix7pGSsYLgWk6PGzj9ouFh6CS26SGc5XjalpVCwIdWMhLbkxCxcMvG1prFSU+ViWCz4A6RTMuBq1HVf2IvZrAgMBAAGjUzBRMB0GA1UdDgQWBBSTZkulzOJF65wC4scEFYIr1nYNYzAfBgNVHSMEGDAWgBSTZkulzOJF65wC4scEFYIr1nYNYzAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQC42EUHqz9mz+pLtRzr8Ynr0TzyfnVRf/YDLwFfFHaBk/424VrP4817EfbRx3JwHZn4neIuWesUgvK7Yk6piEcGfkuSVpS7uKo6OKQGn4rHaOLxnzfAQ4CIBVrfnTg5Lmqze6bwkt/yO8k0mvEHuORuGjvkcp4ZC2f+il/UGd+qCUoej9bpAOY4Z0oJ8+Z+rFKSqHdPqDjVmKloFh0Dp+wsKMNur3/4wDWUmI52BAaehPNzUgYtEUyNjMiOQZw7Xvwmh9ipWUozFtKwj2h6t8o1/qYU3ExUT2f50CiGIyb/AOempD1H+tNaNwWcwDHT+2ZWiCIWiKCVTrKpSN7O</X509Certificate>
+          </DigitalId>
+        </ServiceDigitalIdentity>
+      </ServiceDigitalIdentities>
+      <TSLLocation>https://raw.githubusercontent.com/AniaAlex/comprehensive-test-setup/refs/heads/main/test-output/tsl-2.xml</TSLLocation>
+      <AdditionalInformation>
+        <OtherInformation>
+          <TSLType>http://uri.etsi.org/TrstSvc/TrustedList/TSLType/EUgeneric</TSLType>
+        </OtherInformation>
+        <OtherInformation>
+          <SchemeOperatorName>
+            <Name xml:lang="en">German National Trust List Operator</Name>
+            <Name xml:lang="de">Deutscher Nationaler Vertrauenslistenoperator</Name>
+          </SchemeOperatorName>
+        </OtherInformation>
+        <OtherInformation>
+          <SchemeTerritory>DE</SchemeTerritory>
+        </OtherInformation>
+        <OtherInformation>
+          <SchemeTypeCommunityRules>
+            <URI xml:lang="en">http://uri.etsi.org/TrstSvc/TrustedList/schemerules/EUcommon</URI>
+            <URI xml:lang="en">http://uri.etsi.org/TrstSvc/TrustedList/schemerules/DE</URI>
+          </SchemeTypeCommunityRules>
+        </OtherInformation>
+      </AdditionalInformation>
+    </OtherTSLPointer>
+  </PointersToOtherTSL> 
+</SchemeInformation>  
+</TrustServiceStatusList>

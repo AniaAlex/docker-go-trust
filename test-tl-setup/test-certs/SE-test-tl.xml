@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TrustServiceStatusList xmlns="http://uri.etsi.org/02231/v2#" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#" xmlns:ns3="http://uri.etsi.org/02231/v2/additionaltypes#" xmlns:ns4="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns5="http://uri.etsi.org/TrstSvc/SvcInfoExt/eSigDir-1999-93-EC-TrustedList/#" xmlns:ns6="http://uri.etsi.org/01903/v1.4.1#" Id="BE-TL-071" TSLTag="http://uri.etsi.org/19612/TSLTag">
+    <SchemeInformation>
+      <TSLVersionIdentifier>1</TSLVersionIdentifier>
+      <TSLSequenceNumber>0</TSLSequenceNumber>
+      <TSLType>http://uri.etsi.org/TrstSvc/TrustedList/TSLType/EUgeneric</TSLType>
+      <SchemeOperatorName>
+        <Name lang="en">Swedish National Trust List Operator</Name>
+        <Name lang="sv">Svensk Nationell Tillitslistoperatör</Name>
+      </SchemeOperatorName>
+      <StatusDeterminationApproach></StatusDeterminationApproach>
+      <HistoricalInformationPeriod>0</HistoricalInformationPeriod>
+      <ListIssueDateTime></ListIssueDateTime>
+    </SchemeInformation>
+    <TrustServiceProviderList>
+      <TrustServiceProvider>
+        <TSPInformation>
+          <TSPName>
+            <Name lang="en">Swedbank Certificate Authority</Name>
+            <Name lang="sv">Swedbank Certifikatutfärdare</Name>
+          </TSPName>
+          <TSPAddress>
+            <PostalAddresses>
+              <PostalAddress lang="en">
+                <StreetAddress>Landsvägen 40</StreetAddress>
+                <Locality>Sundbyberg</Locality>
+                <PostalCode>17263</PostalCode>
+                <CountryName>SE</CountryName>
+              </PostalAddress>
+            </PostalAddresses>
+            <ElectronicAddress>
+              <URI lang="en">https://www.swedbank.se</URI>
+              <URI lang="en">mailto:cert-support@swedbank.se</URI>
+            </ElectronicAddress>
+          </TSPAddress>
+        </TSPInformation>
+        <TSPServices>
+          <TSPService>
+            <ServiceInformation>
+              <ServiceTypeIdentifier>http://uri.etsi.org/TrstSvc/Svctype/CA/QC</ServiceTypeIdentifier>
+              <ServiceName>
+                <Name lang="en">Swedbank Root Certificate Authority</Name>
+                <Name lang="sv">Swedbank Rotcertifikatutfärdare</Name>
+              </ServiceName>
+              <ServiceDigitalIdentity>
+                <DigitalId>
+                  <X509Certificate>MIID8TCCAtmgAwIBAgIURYv4lbWPC2kNWbD/hm4TOJzc1RcwDQYJKoZIhvcNAQELBQAwgYcxCzAJBgNVBAYTAlNFMRIwEAYDVQQIDAlTdG9ja2hvbG0xEzARBgNVBAcMClN1bmRieWJlcmcxFDASBgNVBAoMC1N3ZWRiYW5rIEFCMR4wHAYDVQQLDBVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxGTAXBgNVBAMMEFN3ZWRiYW5rIFJvb3QgQ0EwHhcNMjUxMDE1MDkzMDExWhcNMjYxMDE1MDkzMDExWjCBhzELMAkGA1UEBhMCU0UxEjAQBgNVBAgMCVN0b2NraG9sbTETMBEGA1UEBwwKU3VuZGJ5YmVyZzEUMBIGA1UECgwLU3dlZGJhbmsgQUIxHjAcBgNVBAsMFUNlcnRpZmljYXRlIEF1dGhvcml0eTEZMBcGA1UEAwwQU3dlZGJhbmsgUm9vdCBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMl2+X0EcSZnOUGJ04gazUViBZ5ta7XPpvisp6Ng/hcUx95oIsRak9W+9ozx1v2IERY/0BbLb0DQTbu04ovvALQMm1aqvtAIIhFweXJmrn+dlQgtxWXOPqDkVHIGYrYQj/tAYlv/i3sBstraswNi0Gb+oHMOXg0zR5domiXCF9Tq6FXPNFuqsG0sk3/Heacp/JUUYfMxJmtb+rdZjnzVnFvKE+GhL4GlYiLRy+6Zm25yxiJHBI3yAnl9T4x+4xOtY7Mcn1lu5oerJ8K9BXFoaOe8DjEoIFVyIZ5BTHoLWTVWcSJOUP6hSav9FUvOlinJBG74coJsDWNp6JCiK3TyT6kCAwEAAaNTMFEwHQYDVR0OBBYEFInVNmEHzAWxFHlrpJKSL7L55qxdMB8GA1UdIwQYMBaAFInVNmEHzAWxFHlrpJKSL7L55qxdMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAERYXVUifqfH8aBUBgbHh86kqv8EAvBN5c418lw+9BzAV0Zh43LQGj5lKlaeqpqfPJ4imM5XiiSq4GR6ihI0qfT6/4JxlLQg0TUwe5oJyHl9rexoW9Htpy2A542mR7NZrKXeCfEWlh9sjGoaIYKrdBY454S24G+20rEwroUl9fPtEYPHqFjC/MalhXKJpPdxORf8CRkDCHSXucZp4paMz6txK1zKVjRrFbfiyW7W6QRbCTy2sezVCGKQhMxmB5g/HrvxcddQJdfe6l/xZBWOd16Tj1KzeZFEc9MQ82OG9GsYZ5DJFHUCyaojlFPSF7UopHj/znMj9mFNUYPtMHcop1E=</X509Certificate>
+                  <X509SubjectName></X509SubjectName>
+                  <X509SKI></X509SKI>
+                </DigitalId>
+              </ServiceDigitalIdentity>
+              <ServiceStatus>http://uri.etsi.org/TrstSvc/TrustedList/Svcstatus/granted</ServiceStatus>
+              <StatusStartingTime></StatusStartingTime>
+            </ServiceInformation>
+          </TSPService>
+        </TSPServices>
+      </TrustServiceProvider>
+    </TrustServiceProviderList>
+</TrustServiceStatusList>
