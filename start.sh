@@ -57,8 +57,8 @@ else
     exit 1
 fi
 
-echo "Starting go-trust with arguments: ${ARGS}"
+echo "Starting gt with arguments: ${ARGS}"
 echo "---"
 
-# Execute go-trust binary
-exec ./go-trust ${ARGS}
+# Execute gt binary
+exec ./gt ${ARGS}
