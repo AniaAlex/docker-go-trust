@@ -11,8 +11,13 @@ RUN apk add --no-cache \
 
 WORKDIR /build
 
-# Clone go-trust source code
-RUN git clone https://github.com/SUNET/go-trust.git .
+# # Clone go-trust source code
+# RUN git clone https://github.com/SUNET/go-trust.git .
+
+# Clone forked go-trust with TSL support
+RUN git clone https://github.com/AniaAlex/go-trust.git . \
+    && git checkout 89bbaac6651131f1a1276c60a5cb46f82001810f
+
 
 # Copy controlled dependencies from docker-go-trust
 COPY ./go.mod ./go.sum /tmp/controlled-deps/

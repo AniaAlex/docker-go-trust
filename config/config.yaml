@@ -8,6 +8,11 @@ server:
   port: 6001
   frequency: "5m"
 
+  tls:
+    enabled: true
+    cert_file: /tls_cert.pem
+    key_file: /tls_key.pem
+
 logging:
   level: "info"
   format: "text"
@@ -18,3 +23,4 @@ security:
   enable_cors: true
   allowed_origins:
     - "*"
+  # TLS/HTTPS configuration
